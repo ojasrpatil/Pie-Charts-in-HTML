@@ -1,0 +1,98 @@
+<!-- Name of Program: EECS 368 Assignment 4
+     Description: The purpose of this code is to create two pie charts using html and javascript.
+     Inputs: There are no inputs needed for this assignment.
+     Outputs: The program prints two pie charts on the webpage with a legend below each of the charts.
+     Authors Name: Ojas Patil
+     Creation Date: October 16, 2022 -->
+
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Ojas Patil's Pie Charts</title>
+    <style>
+        .container {
+            width: 50%;
+            height: 50vh;
+            border: 1px solid;
+        }
+
+        .container2 {
+            width: 50%;
+            height: 50vh;
+            border: 1px solid;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div> <h1> Pie Chart 1 </h1></div>
+    <div class="conatiner">
+        <canvas id="one" width="200" height="200"></canvas>
+        <p style="color:#7b5804"><B>- Satisfied (927)</B></p>
+        <p style="color:#FFFF00"><B>- Neutral (463)</B></p>
+        <p style="color:#FF69B4"><B>- Unsatisfied (213)</B></p>
+        <p style="color:#F73809"><B>- No Comment (510)</B></p>
+    </div>
+
+    <div> <h2> Pie Chart 2 </h2></div>
+    <div class="conatiner2">
+        <canvas id="two" width="200" height="200"></canvas>
+        <p style="color:#008000"><B>- Very Happy (104)</B></p>
+        <p style="color:#A020F0"><B>- Happy (63)</B></p>
+        <p style="color:#800000"><B>- Neutral (87)</B></p>
+        <p style="color:#333333"><B>- Unhappy (51)</B></p>
+        <p style="color:#daa520"><B>- Very Unhappy (26)</B></p>
+        <p style="color:#088da5"><B>- No Comment (18)</B></p>
+    </div>
+</body>
+
+<script> //starts the script section
+    let ctx = document.getElementById("one").getContext("2d"); //creates the ctx inside of the canvas in 2d
+    let ctx2 = document.getElementById("two").getContext("2d"); //creates the second ctx inside of the canvas in 2d
+
+    const results = [ //shows the results for the first pie chart
+        { mood: "Satisfied", total: 927, shade: "#7b5804" }, //shows the "Satisifed" section of the pie chart
+        { mood: "Neutral", total: 463, shade: "#FFFF00" }, //shows the "Neutral" section of the pie chart
+        { mood: "Unsatisfied", total: 213, shade: "#FF69B4" }, //shows the "Unsatisifed" section of the pie chart
+        { mood: "No Comment", total: 510, shade: "#F73809" } //shows the "No Comment" section of the pie chart
+    ];
+    let sum = 0; //sum is set equal to 0
+    let totalNumberOfPeople = results.reduce((sum, { total }) => sum + total, 0); //sets totalNumberOfPeople equal to all of the totals added
+    let currentAngle = 0; //sets currentAngle equal to 0
+    for (let moodValue of results) { //creates a for loop for each moodValue of results
+        let portionAngle = (moodValue.total / totalNumberOfPeople) * 2 * Math.PI; //calculates the angle that the section will take in the chart
+        ctx.beginPath(); //starts to draw the pie chart
+        ctx.arc(100, 100, 100, currentAngle, currentAngle + portionAngle); //draws an arc and a line to the center to create a section
+        currentAngle += portionAngle; //currentAngle is added to portionAngle
+        ctx.lineTo(100, 100); //a line is drawn to 100, 100
+        ctx.fillStyle = moodValue.shade; //the sections are filled with the corresponding moodValue color
+        ctx.fill(); //fills in the sections of the pie chart
+    }
+    const results2 = [ //shows the results for the second pie chart
+        { mood: "Very Happy", total: 104, shade: "#008000" }, //shows the "Very Happy" section of the pie chart
+        { mood: "Happy", total: 63, shade: "#A020F0" }, //shows the "Happy" section of the pie chart
+        { mood: "Neutral", total: 87, shade: "#800000" }, //shows the "Neutral" section of the pie chart
+        { mood: "Unhappy", total: 51, shade: "#333333" }, //shows the "Unhappy" section of the pie chart
+        { mood: "Very Unhappy", total: 26, shade: "#daa520" }, //shows the "Very Unhappy" section of the pie chart
+        { mood: "No Comment", total: 18, shade: "#088da5" } //shows the "No Comment" section of the pie chart
+    ]
+
+    let sum2 = 0; //the var sum2 is set to 0
+    let totalNumberOfPeople2 = results2.reduce((sum, { total }) => sum + total, 0); //the "results2.reduce((sum, { total }) => sum + total, 0)" is set to the "totalNumberOfPeople2"
+    let currentAngle2 = 0; //the currentAngle2 is set to 0
+    for (let moodValue of results2) { //creates a for loop for each moodValue in results2
+        let portionAngle2 = (moodValue.total / totalNumberOfPeople2) * 2 * Math.PI; //calculates the angle that the section will take in the chart
+        ctx2.beginPath(); //starts to draw the second pie chart
+        ctx2.arc(100, 100, 100, currentAngle2, currentAngle2 + portionAngle2); //draws an arc and a line to the center to create a section
+        currentAngle2 += portionAngle2; //currentAngle is added to portionAngle
+        ctx2.lineTo(100, 100); //a line is drawn to 100, 100
+        ctx2.fillStyle = moodValue.shade; //the sections are filled with the corresponding moodValue color
+        ctx2.fill(); //fills in the sections of the second pie chart
+    }
+
+</script> <!-- ends the script section -->
+
+</html>
